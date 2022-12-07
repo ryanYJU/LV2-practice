@@ -54,8 +54,7 @@
 
 
 ## Event Storming 결과
-* MSAEz 로 모델링한 이벤트스토밍 결과:  https://www.msaez.io/#/storming/UIVLEOI76tW2bh8UlPQUpuzWRxH2/32b4a2fc5dd526f62c0783865a79c540
-
+* MSAEz 로 모델링한 이벤트스토밍 결과: 
 ![image](https://user-images.githubusercontent.com/48579352/206129007-fdd0db5a-7dc3-462c-8c22-96848a2ce91a.png)
 
     - 고객이 메뉴를 선택하여 주문한다. (ok)
