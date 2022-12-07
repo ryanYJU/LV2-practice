@@ -34,7 +34,7 @@
 
 # 체크포인트
 
-- Saga (Pub / Sub)(#Saga (Pub / Sub))
+- Saga (Pub / Sub)
 - CQRS(#CQRS)
 - Compensation / Correlation
 - Request / Response(# Request / Response)
