@@ -1,10 +1,9 @@
 # 실습 - 배달 서비스
 
 # Table of contents
-
 - [실습 - 배달 APP]
   - [서비스 시나리오](#서비스-시나리오)  
-  - [분석/설계](#분석-설계)
+  - [분석/설계](#분석설계)
   - [체크포인트](#체크포인트)
 
 # 서비스 시나리오
@@ -30,16 +29,6 @@
 1. 성능
     1. 고객이 자주 상점관리에서 확인할 수 있는 배달상태를 주문시스템(프론트엔드)에서 확인할 수 있어야 한다  CQRS
     1. 배달상태가 바뀔때마다 카톡 등으로 알림을 줄 수 있어야 한다  Event driven
-
-
-# 체크포인트
-
-- Saga (Pub / Sub)
-- CQRS(#CQRS)
-- Compensation / Correlation
-- Request / Response(# Request / Response)
-- Circuit Breaker(# Circuit Breaker)
-- Gateway / Ingress(# Gateway / Ingress)
 
 
 # 분석/설계
@@ -73,6 +62,15 @@
 ## 헥사고날 아키텍처 다이어그램 도출
     
 ![image](https://user-images.githubusercontent.com/48579352/206130434-651d3741-0032-474a-97db-51d4a8fb7eb0.png)
+
+# 체크포인트
+
+- Saga (Pub / Sub)
+- CQRS(#CQRS)
+- Compensation / Correlation
+- Request / Response(# Request / Response)
+- Circuit Breaker(# Circuit Breaker)
+- Gateway / Ingress(# Gateway / Ingress)
 
 # Saga (Pub / Sub)
 
