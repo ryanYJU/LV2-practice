@@ -107,7 +107,7 @@ mvn spring-boot:run
 ## DDD 의 적용
 
 ```
-package fooddelivery;
+package lvpractice;
 
 import javax.persistence.*;
 import org.springframework.beans.BeanUtils;
@@ -150,7 +150,7 @@ public class 결제이력 {
 ```
 - Entity Pattern 과 Repository Pattern 을 적용하여 JPA 를 통하여 다양한 데이터소스 유형 (RDB or NoSQL) 에 대한 별도의 처리가 없도록 데이터 접근 어댑터를 자동 생성하기 위하여 Spring Data REST 의 RestRepository 를 적용하였다
 ```
-package fooddelivery;
+package lvpractice;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -178,7 +178,7 @@ http localhost:8081/orders/1
 ```
 # Order.java
 
-package fooddelivery;
+package lvpractice;
 
 @Document
 public class Order {
@@ -191,7 +191,7 @@ public class Order {
 
 
 # 주문Repository.java
-package fooddelivery;
+package lvpractice;
 
 public interface 주문Repository extends JpaRepository<Order, UUID>{
 }
@@ -225,21 +225,6 @@ for message in consumer:
                                           message.offset, message.key,
                                           message.value))
 
-    # 카톡호출 API
-```
-
-파이선 애플리케이션을 컴파일하고 실행하기 위한 도커파일은 아래와 같다 (운영단계에서 할일인가? 아니다 여기 까지가 개발자가 할일이다. Immutable Image):
-```
-FROM python:2.7-slim
-WORKDIR /app
-ADD . /app
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
-ENV NAME World
-EXPOSE 8090
-CMD ["python", "policy-handler.py"]
-```
-
-
 ## 동기식 호출 과 Fallback 처리
 
 분석단계에서의 조건 중 하나로 주문(app)->결제(pay) 간의 호출은 동기식 일관성을 유지하는 트랜잭션으로 처리하기로 하였다. 호출 프로토콜은 이미 앞서 Rest Repository 에 의해 노출되어있는 REST 서비스를 FeignClient 를 이용하여 호출하도록 한다. 
@@ -249,7 +234,7 @@ CMD ["python", "policy-handler.py"]
 ```
 # (app) 결제이력Service.java
 
-package fooddelivery.external;
+package lvpractice.external;
 
 @FeignClient(name="pay", url="http://localhost:8082")//, fallback = 결제이력ServiceFallback.class)
 public interface 결제이력Service {
@@ -307,7 +292,7 @@ http localhost:8081/orders item=피자 storeId=2   #Success
 - 이를 위하여 결제이력에 기록을 남긴 후에 곧바로 결제승인이 되었다는 도메인 이벤트를 카프카로 송출한다(Publish)
  
 ```
-package fooddelivery;
+package lvpractice;
 
 @Entity
 @Table(name="결제이력_table")
@@ -326,7 +311,7 @@ public class 결제이력 {
 - 상점 서비스에서는 결제승인 이벤트에 대해서 이를 수신하여 자신의 정책을 처리하도록 PolicyHandler 를 구현한다:
 
 ```
-package fooddelivery;
+package lvpractice;
 
 ...
 
