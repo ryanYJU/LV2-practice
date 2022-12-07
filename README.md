@@ -79,6 +79,84 @@
 
 
 # Compensation / Correlation
+
 # Request / Response
+
 # Circuit Breaker
-# Gateway / Ingress
+
+# Gateway / Ingress - 수정 필요
+로컬 설정
+포트번호를 다르게 설정.
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: ordering
+          uri: http://localhost:8081
+          predicates:
+            - Path=/orders/**, /payments/**, 
+        - id: store
+          uri: http://localhost:8082
+          predicates:
+            - Path=/foodCookings/**, 
+        - id: rider
+          uri: http://localhost:8083
+          predicates:
+            - Path=/deliveries/**, 
+        - id: customer
+          uri: http://localhost:8084
+          predicates:
+            - Path=, /mypages/**
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+            
+도커 설정
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: ordering
+          uri: http://ordering:8080
+          predicates:
+            - Path=/orders/**, /payments/**, 
+        - id: store
+          uri: http://store:8080
+          predicates:
+            - Path=/foodCookings/**, 
+        - id: rider
+          uri: http://rider:8080
+          predicates:
+            - Path=/deliveries/**, 
+        - id: customer
+          uri: http://customer:8080
+          predicates:
+            - Path=, /mypages/**
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
